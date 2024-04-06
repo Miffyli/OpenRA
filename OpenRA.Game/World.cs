@@ -29,7 +29,15 @@ namespace OpenRA
 	public sealed class World : IDisposable
 	{
 		internal readonly TraitDictionary TraitDict = new();
-		readonly SortedDictionary<uint, Actor> actors = new();
+
+		// Hardcoded stuff for now to play with things
+		public int NumParallelWorlds = 2;
+		public int FrontendWorld = 0;
+
+		// Actors and effects are lists (length of num parallel worlds).
+		// Initialize list of right length already
+		readonly List<SortedDictionary<uint, Actor>> actors = new();
+
 		readonly List<IEffect> effects = new();
 		readonly List<IEffect> unpartitionedEffects = new();
 		readonly List<ISync> syncedEffects = new();
@@ -191,6 +199,9 @@ namespace OpenRA
 
 		internal World(string mapUID, ModData modData, OrderManager orderManager, WorldType type)
 		{
+			for (var i = 0; i < NumParallelWorlds; i++)
+				actors.Add(new SortedDictionary<uint, Actor>());
+
 			this.modData = modData;
 			Type = type;
 			OrderManager = orderManager;
@@ -334,7 +345,7 @@ namespace OpenRA
 		public void Add(Actor a)
 		{
 			a.IsInWorld = true;
-			actors.Add(a.ActorID, a);
+			actors[FrontendWorld].Add(a.ActorID, a);
 			ActorAdded(a);
 
 			foreach (var t in a.TraitsImplementing<INotifyAddedToWorld>())
@@ -344,7 +355,7 @@ namespace OpenRA
 		public void Remove(Actor a)
 		{
 			a.IsInWorld = false;
-			actors.Remove(a.ActorID);
+			actors[FrontendWorld].Remove(a.ActorID);
 			ActorRemoved(a);
 
 			foreach (var t in a.TraitsImplementing<INotifyRemovedFromWorld>())
@@ -441,12 +452,16 @@ namespace OpenRA
 			{
 				WorldTick++;
 
+				// Loop over the parallel worlds, and tick all actors in each world
 				using (new PerfSample("tick_actors"))
-					foreach (var a in actors.Values)
+				foreach (var i in Enumerable.Range(0, NumParallelWorlds))
+					foreach (var a in actors[i].Values)
 						a.Tick();
 
+				// TODO should tick all things as well in all worlds
 				ApplyToActorsWithTraitTimed<ITick>((actor, trait) => trait.Tick(actor), "Trait");
 
+				// TODO should tick all things in all the worlds
 				effects.DoTimed(e => e.Tick(this), "Effect");
 			}
 
@@ -461,14 +476,14 @@ namespace OpenRA
 			ScreenMap.TickRender();
 		}
 
-		public IEnumerable<Actor> Actors => actors.Values;
+		public IEnumerable<Actor> Actors => actors[FrontendWorld].Values;
 		public IEnumerable<IEffect> Effects => effects;
 		public IEnumerable<IEffect> UnpartitionedEffects => unpartitionedEffects;
 		public IEnumerable<ISync> SyncedEffects => syncedEffects;
 
 		public Actor GetActorById(uint actorId)
 		{
-			if (actors.TryGetValue(actorId, out var a))
+			if (actors[FrontendWorld].TryGetValue(actorId, out var a))
 				return a;
 			return null;
 		}
@@ -481,6 +496,7 @@ namespace OpenRA
 
 		public int SyncHash()
 		{
+			// TODO should be updated to loop over the worlds
 			// using (new PerfSample("synchash"))
 			{
 				var n = 0;
@@ -601,7 +617,7 @@ namespace OpenRA
 			ModelCache.Dispose();
 
 			// Dispose newer actors first, and the world actor last
-			foreach (var a in actors.Values.Reverse())
+			foreach (var a in actors[FrontendWorld].Values.Reverse())
 				a.Dispose();
 
 			// Actor disposals are done in a FrameEndTask

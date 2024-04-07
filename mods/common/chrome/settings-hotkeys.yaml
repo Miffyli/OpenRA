@@ -23,6 +23,8 @@ Container@HOTKEYS_PANEL:
 				Types: ControlGroups
 			Editor Commands:
 				Types: Editor
+			Aika Commands:
+				Types: Aika
 	Width: PARENT_RIGHT
 	Height: PARENT_BOTTOM
 	Children:

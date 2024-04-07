@@ -132,3 +132,13 @@ NextMusic: AUDIONEXT
 	Description: Next
 	Types: Music
 	Contexts: Menu, Player, Spectator
+
+NextParallelWorld: PAGEUP
+	Description: Next Parallel World
+	Types: Aika
+	Contexts: Player, Aika
+
+PreviousParallelWorld: PAGEDOWN
+	Description: Previous Parallel World
+	Types: Aika
+	Contexts: Player, Aika

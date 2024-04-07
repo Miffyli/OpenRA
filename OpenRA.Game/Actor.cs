@@ -50,11 +50,24 @@ namespace OpenRA
 
 		public readonly World World;
 
+		public int MyParallelWorldIndex;
+
 		public readonly uint ActorID;
 
 		public Player Owner { get; internal set; }
 
-		public bool IsInWorld { get; internal set; }
+		internal bool InternalIsInWorld;
+		public bool IsInWorld
+		{
+			get => InternalIsInWorld && (MyParallelWorldIndex == World.FrontendWorld);
+			internal set
+			{
+				if (InternalIsInWorld == value)
+					return;
+				InternalIsInWorld = value;
+			}
+		}
+
 		public bool WillDispose { get; private set; }
 		public bool Disposed { get; private set; }
 
@@ -120,6 +133,8 @@ namespace OpenRA
 
 		internal Actor(World world, string name, TypeDictionary initDict)
 		{
+			MyParallelWorldIndex = world.FrontendWorld;
+
 			var duplicateInit = initDict.WithInterface<ISingleInstanceInit>().GroupBy(i => i.GetType())
 				.FirstOrDefault(i => i.Count() > 1);
 

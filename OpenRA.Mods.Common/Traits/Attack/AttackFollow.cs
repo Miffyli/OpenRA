@@ -373,7 +373,7 @@ namespace OpenRA.Mods.Common.Traits
 					else
 					{
 						var target = self.World.ActorsHavingTrait<Reservable>()
-							.Where(a => !a.IsDead && a.IsInWorld
+							.Where(a => !a.IsDead && a.IsInFrontendWorld
 								&& a.Owner.IsAlliedWith(self.Owner) &&
 								rearmable.Info.RearmActors.Contains(a.Info.Name))
 							.OrderBy(a => a.Owner == self.Owner ? 0 : 1)

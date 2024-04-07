@@ -20,7 +20,7 @@ namespace OpenRA.Mods.Common
 		{
 			if (shortGame)
 				return !player.World.ActorsHavingTrait<MustBeDestroyed>(t => t.Info.RequiredForShortGame).Any(a => a.Owner == player);
-			return !player.World.ActorsHavingTrait<MustBeDestroyed>().Any(a => a.Owner == player && a.IsInWorld);
+			return !player.World.ActorsHavingTrait<MustBeDestroyed>().Any(a => a.Owner == player && a.IsInFrontendWorld);
 		}
 	}
 }

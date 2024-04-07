@@ -153,7 +153,7 @@ namespace OpenRA.Graphics
 		{
 			World.ApplyToActorsWithTrait<IRenderAboveShroud>((actor, trait) =>
 			{
-				if (!actor.IsInWorld || actor.Disposed || (trait.SpatiallyPartitionable && !onScreenActors.Contains(actor)))
+				if (!actor.IsInFrontendWorld || actor.Disposed || (trait.SpatiallyPartitionable && !onScreenActors.Contains(actor)))
 					return;
 
 				foreach (var renderable in trait.RenderAboveShroud(actor, this))
@@ -162,7 +162,7 @@ namespace OpenRA.Graphics
 
 			foreach (var a in World.Selection.Actors)
 			{
-				if (!a.IsInWorld || a.Disposed)
+				if (!a.IsInFrontendWorld || a.Disposed)
 					continue;
 
 				foreach (var t in a.TraitsImplementing<IRenderAboveShroudWhenSelected>())
@@ -194,7 +194,7 @@ namespace OpenRA.Graphics
 		{
 			World.ApplyToActorsWithTrait<IRenderAnnotations>((actor, trait) =>
 			{
-				if (!actor.IsInWorld || actor.Disposed || (trait.SpatiallyPartitionable && !onScreenActors.Contains(actor)))
+				if (!actor.IsInFrontendWorld || actor.Disposed || (trait.SpatiallyPartitionable && !onScreenActors.Contains(actor)))
 					return;
 
 				foreach (var renderAnnotation in trait.RenderAnnotations(actor, this))
@@ -203,7 +203,7 @@ namespace OpenRA.Graphics
 
 			foreach (var a in World.Selection.Actors)
 			{
-				if (!a.IsInWorld || a.Disposed)
+				if (!a.IsInFrontendWorld || a.Disposed)
 					continue;
 
 				foreach (var t in a.TraitsImplementing<IRenderAnnotationsWhenSelected>())
@@ -272,7 +272,7 @@ namespace OpenRA.Graphics
 
 			World.ApplyToActorsWithTrait<IRenderAboveWorld>((actor, trait) =>
 			{
-				if (actor.IsInWorld && !actor.Disposed)
+				if (actor.IsInFrontendWorld && !actor.Disposed)
 					trait.RenderAboveWorld(actor, this);
 			});
 

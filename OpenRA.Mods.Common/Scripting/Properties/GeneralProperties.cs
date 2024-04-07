@@ -32,7 +32,7 @@ namespace OpenRA.Mods.Common.Scripting
 		[Desc("Specifies whether the actor is in the world.")]
 		public bool IsInWorld
 		{
-			get => Self.IsInWorld;
+			get => Self.IsInFrontendWorld;
 
 			set
 			{

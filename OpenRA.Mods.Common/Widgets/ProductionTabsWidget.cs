@@ -239,7 +239,7 @@ namespace OpenRA.Mods.Common.Widgets
 			if (a.Info.HasTraitInfo<ProductionQueueInfo>())
 			{
 				var allQueues = a.World.ActorsWithTrait<ProductionQueue>()
-					.Where(p => p.Actor.Owner == p.Actor.World.LocalPlayer && p.Actor.IsInWorld && p.Trait.Enabled)
+					.Where(p => p.Actor.Owner == p.Actor.World.LocalPlayer && p.Actor.IsInFrontendWorld && p.Trait.Enabled)
 					.Select(p => p.Trait).ToList();
 
 				foreach (var g in Groups.Values)

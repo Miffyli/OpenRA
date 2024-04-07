@@ -46,7 +46,7 @@ namespace OpenRA.Mods.Common.Traits
 		{
 			// Actors can be created without being added to the world
 			// We want to make sure that this only triggers once they are inserted into the world
-			if (lifetime == 0 && self.IsInWorld)
+			if (lifetime == 0 && self.IsInFrontendWorld)
 				self.World.AddFrameEndTask(w => Kill(self));
 		}
 
@@ -58,7 +58,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		void ITick.Tick(Actor self)
 		{
-			if (!self.IsInWorld || self.IsDead || IsTraitDisabled)
+			if (!self.IsInFrontendWorld || self.IsDead || IsTraitDisabled)
 				return;
 
 			if (!self.World.Map.Contains(self.Location))

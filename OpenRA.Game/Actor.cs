@@ -57,9 +57,9 @@ namespace OpenRA
 		public Player Owner { get; internal set; }
 
 		internal bool InternalIsInWorld;
-		public bool IsInWorld
+		public bool IsInFrontendWorld
 		{
-			get => InternalIsInWorld && (MyParallelWorldIndex == World.FrontendWorld);
+			get => InternalIsInWorld && (MyParallelWorldIndex == World.FrontendWorldIndex);
 			internal set
 			{
 				if (InternalIsInWorld == value)
@@ -133,7 +133,7 @@ namespace OpenRA
 
 		internal Actor(World world, string name, TypeDictionary initDict)
 		{
-			MyParallelWorldIndex = world.FrontendWorld;
+			MyParallelWorldIndex = world.FrontendWorldIndex;
 
 			var duplicateInit = initDict.WithInterface<ISingleInstanceInit>().GroupBy(i => i.GetType())
 				.FirstOrDefault(i => i.Count() > 1);
@@ -387,7 +387,7 @@ namespace OpenRA
 		{
 			// PERF: Avoid format strings.
 			var name = Info.Name + " " + ActorID;
-			if (!IsInWorld)
+			if (!IsInFrontendWorld)
 				name += " (not in world)";
 			return name;
 		}
@@ -426,7 +426,7 @@ namespace OpenRA
 				if (Disposed)
 					return;
 
-				if (IsInWorld)
+				if (IsInFrontendWorld)
 					World.Remove(this);
 
 				foreach (var t in TraitsImplementing<INotifyActorDisposing>())
@@ -461,7 +461,7 @@ namespace OpenRA
 				return;
 
 			var oldOwner = Owner;
-			var wasInWorld = IsInWorld;
+			var wasInWorld = IsInFrontendWorld;
 
 			// momentarily remove from world so the ownership queries don't get confused
 			if (wasInWorld)

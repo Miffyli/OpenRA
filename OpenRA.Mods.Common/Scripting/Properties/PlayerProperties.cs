@@ -74,14 +74,14 @@ namespace OpenRA.Mods.Common.Scripting
 		[Desc("Returns all living actors staying inside the world for this player.")]
 		public Actor[] GetActors()
 		{
-			return Player.World.Actors.Where(actor => actor.Owner == Player && !actor.IsDead && actor.IsInWorld).ToArray();
+			return Player.World.Actors.Where(actor => actor.Owner == Player && !actor.IsDead && actor.IsInFrontendWorld).ToArray();
 		}
 
 		[Desc("Returns an array of actors representing all ground attack units of this player.")]
 		public Actor[] GetGroundAttackers()
 		{
 			return Player.World.ActorsHavingTrait<AttackBase>()
-				.Where(a => a.Owner == Player && !a.IsDead && a.IsInWorld && a.Info.HasTraitInfo<MobileInfo>())
+				.Where(a => a.Owner == Player && !a.IsDead && a.IsInFrontendWorld && a.Info.HasTraitInfo<MobileInfo>())
 				.ToArray();
 		}
 
@@ -94,7 +94,7 @@ namespace OpenRA.Mods.Common.Scripting
 				throw new LuaException($"Unknown actor type '{type}'");
 
 			result.AddRange(Player.World.Actors
-				.Where(actor => actor.Owner == Player && !actor.IsDead && actor.IsInWorld && actor.Info.Name == ai.Name));
+				.Where(actor => actor.Owner == Player && !actor.IsDead && actor.IsInFrontendWorld && actor.Info.Name == ai.Name));
 
 			return result.ToArray();
 		}
@@ -109,7 +109,7 @@ namespace OpenRA.Mods.Common.Scripting
 					throw new LuaException($"Unknown actor type '{type}'");
 
 			result.AddRange(Player.World.Actors
-				.Where(actor => actor.Owner == Player && !actor.IsDead && actor.IsInWorld && types.Contains(actor.Info.Name)));
+				.Where(actor => actor.Owner == Player && !actor.IsDead && actor.IsInFrontendWorld && types.Contains(actor.Info.Name)));
 
 			return result.ToArray();
 		}

@@ -51,7 +51,7 @@ namespace OpenRA.Mods.Common.Traits
 			var wasInAttackRange = inAttackRange;
 			inAttackRange = false;
 
-			if (self.IsInWorld)
+			if (self.IsInFrontendWorld)
 			{
 				var dat = self.World.Map.DistanceAboveTerrain(target.CenterPosition);
 				target = Target.FromPos(target.CenterPosition - new WVec(WDist.Zero, WDist.Zero, dat));

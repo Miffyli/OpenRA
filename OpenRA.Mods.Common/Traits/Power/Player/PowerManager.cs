@@ -82,7 +82,7 @@ namespace OpenRA.Mods.Common.Traits
 		public void UpdateActor(Actor a)
 		{
 			// Do not add power from actors that are not in the world
-			if (!a.IsInWorld)
+			if (!a.IsInFrontendWorld)
 				return;
 
 			// Old is 0 if a is not in powerDrain
@@ -110,7 +110,7 @@ namespace OpenRA.Mods.Common.Traits
 		public void RemoveActor(Actor a)
 		{
 			// Do not remove power from actors that are still in the world
-			if (a.IsInWorld)
+			if (a.IsInFrontendWorld)
 				return;
 
 			if (!powerDrain.TryGetValue(a, out var amount))
@@ -199,7 +199,7 @@ namespace OpenRA.Mods.Common.Traits
 		void UpdatePowerOutageActors()
 		{
 			var traitPairs = self.World.ActorsWithTrait<AffectedByPowerOutage>()
-				.Where(p => !p.Actor.IsDead && p.Actor.IsInWorld && p.Actor.Owner == self.Owner);
+				.Where(p => !p.Actor.IsDead && p.Actor.IsInFrontendWorld && p.Actor.Owner == self.Owner);
 
 			foreach (var p in traitPairs)
 				p.Trait.UpdateStatus(p.Actor);
@@ -208,7 +208,7 @@ namespace OpenRA.Mods.Common.Traits
 		void UpdatePowerRequiringActors()
 		{
 			var traitPairs = self.World.ActorsWithTrait<INotifyPowerLevelChanged>()
-				.Where(p => !p.Actor.IsDead && p.Actor.IsInWorld && p.Actor.Owner == self.Owner);
+				.Where(p => !p.Actor.IsDead && p.Actor.IsInFrontendWorld && p.Actor.Owner == self.Owner);
 
 			foreach (var p in traitPairs)
 				p.Trait.PowerLevelChanged(p.Actor);

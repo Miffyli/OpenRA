@@ -95,7 +95,7 @@ namespace OpenRA.Traits
 				if (type == TargetType.Actor)
 				{
 					// Actor is no longer in the world
-					if (!Actor.IsInWorld || Actor.IsDead)
+					if (!Actor.IsInFrontendWorld || Actor.IsDead)
 						return TargetType.Invalid;
 
 					// Actor generation has changed (teleported or captured)

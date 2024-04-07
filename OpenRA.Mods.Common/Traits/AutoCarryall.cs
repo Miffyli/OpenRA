@@ -54,14 +54,14 @@ namespace OpenRA.Mods.Common.Traits
 		{
 			// Find carriers
 			var carriers = self.World.ActorsHavingTrait<AutoCarryall>(c => !c.busy)
-				.Where(a => a.Owner == self.Owner && a.IsInWorld);
+				.Where(a => a.Owner == self.Owner && a.IsInFrontendWorld);
 
 			return carriers.ClosestTo(candidateCargo) == self;
 		}
 
 		void FindCarryableForTransport(Actor self)
 		{
-			if (!self.IsInWorld)
+			if (!self.IsInFrontendWorld)
 				return;
 
 			// Get all carryables who want transport

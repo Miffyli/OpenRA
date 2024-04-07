@@ -32,7 +32,7 @@ namespace OpenRA
 
 		// Hardcoded stuff for now to play with things
 		public int NumParallelWorlds = 2;
-		public int FrontendWorld = 0;
+		public int FrontendWorldIndex = 0;
 
 		// Actors and effects are lists (length of num parallel worlds).
 		// Initialize list of right length already
@@ -267,7 +267,7 @@ namespace OpenRA
 
 		public void UpdateMaps(Actor self, IOccupySpace ios)
 		{
-			if (!self.IsInWorld)
+			if (!self.IsInFrontendWorld)
 				return;
 
 			ScreenMap.AddOrUpdate(self);
@@ -344,8 +344,8 @@ namespace OpenRA
 
 		public void Add(Actor a)
 		{
-			a.IsInWorld = true;
-			actors[FrontendWorld].Add(a.ActorID, a);
+			a.IsInFrontendWorld = true;
+			actors[FrontendWorldIndex].Add(a.ActorID, a);
 			ActorAdded(a);
 
 			foreach (var t in a.TraitsImplementing<INotifyAddedToWorld>())
@@ -354,8 +354,8 @@ namespace OpenRA
 
 		public void Remove(Actor a)
 		{
-			a.IsInWorld = false;
-			actors[FrontendWorld].Remove(a.ActorID);
+			a.IsInFrontendWorld = false;
+			actors[FrontendWorldIndex].Remove(a.ActorID);
 			ActorRemoved(a);
 
 			foreach (var t in a.TraitsImplementing<INotifyRemovedFromWorld>())
@@ -476,14 +476,14 @@ namespace OpenRA
 			ScreenMap.TickRender();
 		}
 
-		public IEnumerable<Actor> Actors => actors[FrontendWorld].Values;
+		public IEnumerable<Actor> Actors => actors[FrontendWorldIndex].Values;
 		public IEnumerable<IEffect> Effects => effects;
 		public IEnumerable<IEffect> UnpartitionedEffects => unpartitionedEffects;
 		public IEnumerable<ISync> SyncedEffects => syncedEffects;
 
 		public Actor GetActorById(uint actorId)
 		{
-			if (actors[FrontendWorld].TryGetValue(actorId, out var a))
+			if (actors[FrontendWorldIndex].TryGetValue(actorId, out var a))
 				return a;
 			return null;
 		}
@@ -617,7 +617,7 @@ namespace OpenRA
 			ModelCache.Dispose();
 
 			// Dispose newer actors first, and the world actor last
-			foreach (var a in actors[FrontendWorld].Values.Reverse())
+			foreach (var a in actors[FrontendWorldIndex].Values.Reverse())
 				a.Dispose();
 
 			// Actor disposals are done in a FrameEndTask

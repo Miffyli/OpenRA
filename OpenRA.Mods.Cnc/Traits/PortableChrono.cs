@@ -199,7 +199,7 @@ namespace OpenRA.Mods.Cnc.Traits
 
 				IsQueued = modifiers.HasModifier(TargetModifiers.ForceQueue);
 
-				if (self.IsInWorld && self.Owner.Shroud.IsExplored(xy))
+				if (self.IsInFrontendWorld && self.Owner.Shroud.IsExplored(xy))
 				{
 					cursor = targetCursor;
 					return true;
@@ -233,7 +233,7 @@ namespace OpenRA.Mods.Cnc.Traits
 				yield break;
 			}
 
-			if (self.IsInWorld && self.Location != cell
+			if (self.IsInFrontendWorld && self.Location != cell
 				&& self.Trait<PortableChrono>().CanTeleport && self.Owner.Shroud.IsExplored(cell))
 			{
 				world.CancelInputMode();
@@ -262,7 +262,7 @@ namespace OpenRA.Mods.Cnc.Traits
 
 		protected override IEnumerable<IRenderable> RenderAnnotations(WorldRenderer wr, World world)
 		{
-			if (!self.IsInWorld || self.Owner != self.World.LocalPlayer)
+			if (!self.IsInFrontendWorld || self.Owner != self.World.LocalPlayer)
 				yield break;
 
 			if (!info.HasDistanceLimit)
@@ -280,7 +280,7 @@ namespace OpenRA.Mods.Cnc.Traits
 
 		protected override string GetCursor(World world, CPos cell, int2 worldPixel, MouseInput mi)
 		{
-			if (self.IsInWorld && self.Location != cell
+			if (self.IsInFrontendWorld && self.Location != cell
 				&& portableChrono.CanTeleport && self.Owner.Shroud.IsExplored(cell))
 				return info.TargetCursor;
 			else

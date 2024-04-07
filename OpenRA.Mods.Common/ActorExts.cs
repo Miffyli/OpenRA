@@ -23,7 +23,7 @@ namespace OpenRA.Mods.Common
 			if (self.OccupiesSpace == null)
 				return false;
 
-			if (!self.IsInWorld)
+			if (!self.IsInFrontendWorld)
 				return false;
 
 			var map = self.World.Map;

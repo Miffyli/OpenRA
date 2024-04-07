@@ -178,12 +178,12 @@ namespace OpenRA.Mods.Cnc.Traits
 
 		public void SetPosition(Actor self, WPos pos)
 		{
-			if (self.IsInWorld)
+			if (self.IsInFrontendWorld)
 				self.World.ActorMap.RemoveInfluence(self, this);
 
 			CenterPosition = pos;
 
-			if (!self.IsInWorld)
+			if (!self.IsInFrontendWorld)
 				return;
 
 			self.World.UpdateMaps(self, this);

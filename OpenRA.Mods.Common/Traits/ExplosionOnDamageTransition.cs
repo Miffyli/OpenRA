@@ -56,7 +56,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		void INotifyDamageStateChanged.DamageStateChanged(Actor self, AttackInfo e)
 		{
-			if (!self.IsInWorld)
+			if (!self.IsInFrontendWorld)
 				return;
 
 			if (triggered)

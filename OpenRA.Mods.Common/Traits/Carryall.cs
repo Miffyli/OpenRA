@@ -255,7 +255,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		public virtual void UnreserveCarryable(Actor self)
 		{
-			if (Carryable != null && Carryable.IsInWorld && !Carryable.IsDead)
+			if (Carryable != null && Carryable.IsInFrontendWorld && !Carryable.IsDead)
 			{
 				var carryable = Carryable.Trait<Carryable>();
 				if (carryable.Carrier == self)

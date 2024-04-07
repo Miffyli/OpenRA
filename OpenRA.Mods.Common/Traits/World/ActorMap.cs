@@ -659,7 +659,7 @@ namespace OpenRA.Mods.Common.Traits
 				{
 					foreach (var actor in BinAt(row, col).Actors)
 					{
-						if (actor.IsInWorld)
+						if (actor.IsInFrontendWorld)
 						{
 							var c = actor.CenterPosition;
 							if (left <= c.X && c.X <= right && top <= c.Y && c.Y <= bottom)

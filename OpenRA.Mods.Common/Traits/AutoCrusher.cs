@@ -59,7 +59,7 @@ namespace OpenRA.Mods.Common.Traits
 
 			// TODO: Add a proper Cloak and Disguise detection here.
 			var crushableActor = self.World.FindActorsInCircle(self.CenterPosition, Info.ScanRadius)
-				.Where(a => a != self && !a.IsDead && a.IsInWorld &&
+				.Where(a => a != self && !a.IsDead && a.IsInFrontendWorld &&
 					self.Location != a.Location && a.IsAtGroundLevel() &&
 					Info.TargetRelationships.HasRelationship(self.Owner.RelationshipWith(a.Owner)) &&
 					a.TraitsImplementing<ICrushable>().Any(c => c.CrushableBy(a, self, Info.CrushClasses)))

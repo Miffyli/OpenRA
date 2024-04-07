@@ -170,7 +170,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		void ITick.Tick(Actor self)
 		{
-			if (info.Duration != 0 && self.IsInWorld && ++ticks >= info.Duration)
+			if (info.Duration != 0 && self.IsInFrontendWorld && ++ticks >= info.Duration)
 				self.Dispose();
 		}
 

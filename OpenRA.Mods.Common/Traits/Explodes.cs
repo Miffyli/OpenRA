@@ -103,7 +103,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		void INotifyKilled.Killed(Actor self, AttackInfo e)
 		{
-			if (IsTraitDisabled || !self.IsInWorld)
+			if (IsTraitDisabled || !self.IsInFrontendWorld)
 				return;
 
 			if (self.World.SharedRandom.Next(100) > Info.Chance)
@@ -150,7 +150,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		void INotifyDamage.Damaged(Actor self, AttackInfo e)
 		{
-			if (Info.DamageThreshold == 0 || IsTraitDisabled || !self.IsInWorld)
+			if (Info.DamageThreshold == 0 || IsTraitDisabled || !self.IsInFrontendWorld)
 				return;
 
 			if (!Info.DeathTypes.IsEmpty && !e.Damage.DamageTypes.Overlaps(Info.DeathTypes))

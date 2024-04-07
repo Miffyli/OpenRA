@@ -203,7 +203,7 @@ namespace OpenRA.Mods.Common.Projectiles
 			else if (isHeadTravelling)
 				headPos = WPos.LerpQuadratic(args.Source, target, WAngle.Zero, headTicks, length);
 
-			if (tailTicks <= 0 && args.SourceActor.IsInWorld && !args.SourceActor.IsDead)
+			if (tailTicks <= 0 && args.SourceActor.IsInFrontendWorld && !args.SourceActor.IsDead)
 			{
 				args.Source = args.CurrentSource();
 				tailPos = args.Source;

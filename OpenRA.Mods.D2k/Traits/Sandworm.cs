@@ -71,7 +71,7 @@ namespace OpenRA.Mods.D2k.Traits
 
 		void ITick.Tick(Actor self)
 		{
-			if (--targetCountdown > 0 || IsAttacking || !self.IsInWorld)
+			if (--targetCountdown > 0 || IsAttacking || !self.IsInFrontendWorld)
 				return;
 
 			RescanForTargets(self);

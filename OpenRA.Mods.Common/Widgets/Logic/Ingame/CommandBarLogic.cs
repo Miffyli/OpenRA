@@ -284,7 +284,7 @@ namespace OpenRA.Mods.Common.Widgets
 				return;
 
 			selectedActors = world.Selection.Actors
-				.Where(a => a.Owner == world.LocalPlayer && a.IsInWorld && !a.IsDead)
+				.Where(a => a.Owner == world.LocalPlayer && a.IsInFrontendWorld && !a.IsDead)
 				.ToArray();
 
 			attackMoveDisabled = !selectedActors.Any(a => a.Info.HasTraitInfo<AttackMoveInfo>() && a.Info.HasTraitInfo<AutoTargetInfo>());

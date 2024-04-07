@@ -96,7 +96,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 
 		IEnumerable<IRenderable> IDecoration.RenderDecoration(Actor self, WorldRenderer wr, ISelectionDecorations container)
 		{
-			if (IsTraitDisabled || self.IsDead || !self.IsInWorld || !ShouldRender(self))
+			if (IsTraitDisabled || self.IsDead || !self.IsInFrontendWorld || !ShouldRender(self))
 				return Enumerable.Empty<IRenderable>();
 
 			var screenPos = container.GetDecorationOrigin(self, wr, Info.Position, Info.Margin) + conditionalOffset;

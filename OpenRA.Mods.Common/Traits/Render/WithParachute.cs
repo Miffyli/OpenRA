@@ -171,7 +171,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 			if (info.ShadowImage == null)
 				return Enumerable.Empty<IRenderable>();
 
-			if (IsTraitDisabled || self.IsDead || !self.IsInWorld)
+			if (IsTraitDisabled || self.IsDead || !self.IsInFrontendWorld)
 				return Enumerable.Empty<IRenderable>();
 
 			if (self.World.FogObscures(self))
@@ -190,7 +190,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 			if (info.ShadowImage == null)
 				return Enumerable.Empty<Rectangle>();
 
-			if (IsTraitDisabled || self.IsDead || !self.IsInWorld)
+			if (IsTraitDisabled || self.IsDead || !self.IsInFrontendWorld)
 				return Enumerable.Empty<Rectangle>();
 
 			if (self.World.FogObscures(self))

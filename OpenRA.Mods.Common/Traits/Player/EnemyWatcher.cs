@@ -76,7 +76,7 @@ namespace OpenRA.Mods.Common.Traits
 				if (actor.Actor.AppearsFriendlyTo(self))
 					continue;
 
-				if (actor.Actor.IsDead || !actor.Actor.IsInWorld)
+				if (actor.Actor.IsDead || !actor.Actor.IsInFrontendWorld)
 					continue;
 
 				// The actor is not currently visible

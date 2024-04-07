@@ -49,7 +49,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		void INotifyKilled.Killed(Actor self, AttackInfo attack)
 		{
-			if (IsTraitDisabled || !self.IsInWorld)
+			if (IsTraitDisabled || !self.IsInFrontendWorld)
 				return;
 
 			if (!info.DeathTypes.IsEmpty && !attack.Damage.DamageTypes.Overlaps(info.DeathTypes))

@@ -232,7 +232,7 @@ namespace OpenRA.Mods.Common.Traits
 				if (oat.TryGetAutoTargetOverride(self, out _))
 					return;
 
-			if (!attacker.IsInWorld)
+			if (!attacker.IsInFrontendWorld)
 			{
 				// If the aggressor is in a transport, then attack the transport instead
 				var passenger = attacker.TraitOrDefault<Passenger>();

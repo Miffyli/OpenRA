@@ -44,7 +44,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 
 		static IEnumerable<WPos> ActivityTargetPath(Actor self)
 		{
-			if (!self.IsInWorld || self.IsDead)
+			if (!self.IsInFrontendWorld || self.IsDead)
 				yield break;
 
 			var activity = self.CurrentActivity;

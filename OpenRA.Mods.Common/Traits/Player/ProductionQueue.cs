@@ -600,7 +600,7 @@ namespace OpenRA.Mods.Common.Traits
 			var mostLikelyProducerTrait = MostLikelyProducer().Trait;
 
 			// Cannot produce if I'm dead or trait is disabled
-			if (!Actor.IsInWorld || Actor.IsDead || mostLikelyProducerTrait == null)
+			if (!Actor.IsInFrontendWorld || Actor.IsDead || mostLikelyProducerTrait == null)
 			{
 				CancelProduction(unit.Name, 1);
 				return false;

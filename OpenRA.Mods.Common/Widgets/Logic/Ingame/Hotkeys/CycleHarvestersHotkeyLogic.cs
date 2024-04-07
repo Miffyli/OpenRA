@@ -40,7 +40,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic.Ingame
 			var player = world.RenderPlayer ?? world.LocalPlayer;
 
 			var harvesters = world.ActorsHavingTrait<Harvester>()
-				.Where(a => a.IsInWorld && a.Owner == player)
+				.Where(a => a.IsInFrontendWorld && a.Owner == player)
 				.ToList();
 
 			if (harvesters.Count == 0)

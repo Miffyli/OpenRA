@@ -49,7 +49,7 @@ namespace OpenRA.Mods.Common.Traits
 				return;
 
 			// Prevents harming cargo.
-			if (!self.IsInWorld)
+			if (!self.IsInFrontendWorld)
 				return;
 
 			var t = self.World.Map.GetTerrainInfo(self.Location);

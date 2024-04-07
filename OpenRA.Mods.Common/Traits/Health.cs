@@ -148,7 +148,7 @@ namespace OpenRA.Mods.Common.Traits
 			foreach (var nd in notifyDamageStateChanged)
 				nd.DamageStateChanged(self, ai);
 
-			if (Info.NotifyAppliedDamage && repairer != null && repairer.IsInWorld && !repairer.IsDead)
+			if (Info.NotifyAppliedDamage && repairer != null && repairer.IsInFrontendWorld && !repairer.IsDead)
 			{
 				foreach (var nd in repairer.TraitsImplementing<INotifyAppliedDamage>())
 					nd.AppliedDamage(repairer, self, ai);
@@ -207,7 +207,7 @@ namespace OpenRA.Mods.Common.Traits
 				foreach (var nd in notifyDamageStateChanged)
 					nd.DamageStateChanged(self, ai);
 
-			if (Info.NotifyAppliedDamage && attacker != null && attacker.IsInWorld && !attacker.IsDead)
+			if (Info.NotifyAppliedDamage && attacker != null && attacker.IsInFrontendWorld && !attacker.IsDead)
 			{
 				foreach (var nd in attacker.TraitsImplementing<INotifyAppliedDamage>())
 					nd.AppliedDamage(attacker, self, ai);

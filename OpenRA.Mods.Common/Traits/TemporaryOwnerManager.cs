@@ -49,7 +49,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		void ITick.Tick(Actor self)
 		{
-			if (!self.IsInWorld)
+			if (!self.IsInFrontendWorld)
 				return;
 
 			if (--remaining == 0)

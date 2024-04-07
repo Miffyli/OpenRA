@@ -71,7 +71,7 @@ namespace OpenRA.Mods.Common.Traits
 
 			owner.World.AddFrameEndTask(w =>
 			{
-				if (!self.IsInWorld || self.IsDead)
+				if (!self.IsInFrontendWorld || self.IsDead)
 				{
 					owner.PlayerActor.Trait<PlayerResources>().GiveCash(refundableValue);
 					return;
@@ -88,7 +88,7 @@ namespace OpenRA.Mods.Common.Traits
 				actor.QueueActivity(new Fly(actor, Target.FromCell(w, dropPos)));
 				actor.QueueActivity(new CallFunc(() =>
 				{
-					if (!self.IsInWorld || self.IsDead)
+					if (!self.IsInFrontendWorld || self.IsDead)
 					{
 						owner.PlayerActor.Trait<PlayerResources>().GiveCash(refundableValue);
 						return;

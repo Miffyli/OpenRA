@@ -228,7 +228,7 @@ namespace OpenRA.Mods.Common.Widgets
 		{
 			TotalIconCount = AllBuildables.Count();
 
-			if (CurrentQueue != null && !CurrentQueue.Actor.IsInWorld)
+			if (CurrentQueue != null && !CurrentQueue.Actor.IsInFrontendWorld)
 				CurrentQueue = null;
 
 			if (CurrentQueue != null)

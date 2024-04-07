@@ -61,7 +61,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 
 		protected override IEnumerable<IRenderable> RenderDecoration(Actor self, WorldRenderer wr, int2 screenPos)
 		{
-			if (IsTraitDisabled || self.IsDead || !self.IsInWorld || !ShouldRender(self))
+			if (IsTraitDisabled || self.IsDead || !self.IsInFrontendWorld || !ShouldRender(self))
 				return Enumerable.Empty<IRenderable>();
 
 			var size = font.Measure(name);

@@ -591,13 +591,13 @@ namespace OpenRA.Mods.Common.Traits
 
 		public void AddInfluence()
 		{
-			if (self.IsInWorld)
+			if (self.IsInFrontendWorld)
 				self.World.ActorMap.AddInfluence(self, this);
 		}
 
 		public void RemoveInfluence()
 		{
-			if (self.IsInWorld)
+			if (self.IsInFrontendWorld)
 				self.World.ActorMap.RemoveInfluence(self, this);
 		}
 

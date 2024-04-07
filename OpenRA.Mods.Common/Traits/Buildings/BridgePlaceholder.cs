@@ -78,7 +78,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		string IBridgeSegment.Type => Info.Type;
 		DamageState IBridgeSegment.DamageState => Info.DamageState;
-		bool IBridgeSegment.Valid => self.IsInWorld;
+		bool IBridgeSegment.Valid => self.IsInFrontendWorld;
 		CVec[] IBridgeSegment.NeighbourOffsets => Info.NeighbourOffsets;
 		CPos IBridgeSegment.Location => self.Location;
 	}

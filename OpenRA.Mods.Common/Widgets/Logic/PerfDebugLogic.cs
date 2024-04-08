@@ -47,7 +47,8 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 					$"Render {Game.RenderFrame} @ {PerfHistory.Items["render"].Average(Game.Settings.Debug.Samples):F1} ms\n" +
 					$"Batches: {PerfHistory.Items["batches"].LastValue}\n" +
 					$"Viewport Size: {viewportSize.Width} x {viewportSize.Height} / {Game.Renderer.WorldDownscaleFactor}\n" +
-					$"WFB Size: {wfbSize.Width} x {wfbSize.Height}";
+					$"WFB Size: {wfbSize.Width} x {wfbSize.Height}\n" +
+					$"Current Par.World: {worldRenderer.World.FrontendWorldIndex}";
 			};
 		}
 	}

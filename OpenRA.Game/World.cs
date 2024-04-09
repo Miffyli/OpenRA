@@ -38,9 +38,9 @@ namespace OpenRA
 		// Initialize list of right length already
 		readonly List<SortedDictionary<uint, Actor>> actors = new();
 
-		readonly List<IEffect> effects = new();
-		readonly List<IEffect> unpartitionedEffects = new();
-		readonly List<ISync> syncedEffects = new();
+		readonly List<List<IEffect>> effects = new();
+		readonly List<List<IEffect>> unpartitionedEffects = new();
+		readonly List<List<ISync>> syncedEffects = new();
 		readonly GameSettings gameSettings;
 		readonly ModData modData;
 
@@ -200,7 +200,12 @@ namespace OpenRA
 		internal World(string mapUID, ModData modData, OrderManager orderManager, WorldType type)
 		{
 			for (var i = 0; i < NumParallelWorlds; i++)
+			{
 				actors.Add(new SortedDictionary<uint, Actor>());
+				effects.Add(new List<IEffect>());
+				unpartitionedEffects.Add(new List<IEffect>());
+				syncedEffects.Add(new List<ISync>());
+			}
 
 			this.modData = modData;
 			Type = type;
@@ -364,31 +369,31 @@ namespace OpenRA
 
 		public void Add(IEffect e)
 		{
-			effects.Add(e);
+			effects[FrontendWorldIndex].Add(e);
 
 			if (e is not ISpatiallyPartitionable)
-				unpartitionedEffects.Add(e);
+				unpartitionedEffects[FrontendWorldIndex].Add(e);
 
 			if (e is ISync se)
-				syncedEffects.Add(se);
+				syncedEffects[FrontendWorldIndex].Add(se);
 		}
 
 		public void Remove(IEffect e)
 		{
-			effects.Remove(e);
+			effects[FrontendWorldIndex].Remove(e);
 
 			if (e is not ISpatiallyPartitionable)
-				unpartitionedEffects.Remove(e);
+				unpartitionedEffects[FrontendWorldIndex].Remove(e);
 
 			if (e is ISync se)
-				syncedEffects.Remove(se);
+				syncedEffects[FrontendWorldIndex].Remove(se);
 		}
 
 		public void RemoveAll(Predicate<IEffect> predicate)
 		{
-			effects.RemoveAll(predicate);
-			unpartitionedEffects.RemoveAll(e => predicate(e));
-			syncedEffects.RemoveAll(e => predicate((IEffect)e));
+			effects[FrontendWorldIndex].RemoveAll(predicate);
+			unpartitionedEffects[FrontendWorldIndex].RemoveAll(e => predicate(e));
+			syncedEffects[FrontendWorldIndex].RemoveAll(e => predicate((IEffect)e));
 		}
 
 		public void AddFrameEndTask(Action<World> a) { frameEndActions.Enqueue(a); }
@@ -458,11 +463,9 @@ namespace OpenRA
 					foreach (var a in actors[i].Values)
 						a.Tick();
 
-				// TODO should tick all things as well in all worlds
 				ApplyToActorsWithTraitTimed<ITick>((actor, trait) => trait.Tick(actor), "Trait");
 
-				// TODO should tick all things in all the worlds
-				effects.DoTimed(e => e.Tick(this), "Effect");
+				effects[FrontendWorldIndex].DoTimed(e => e.Tick(this), "Effect");
 			}
 
 			while (frameEndActions.Count != 0)
@@ -477,9 +480,9 @@ namespace OpenRA
 		}
 
 		public IEnumerable<Actor> Actors => actors[FrontendWorldIndex].Values;
-		public IEnumerable<IEffect> Effects => effects;
-		public IEnumerable<IEffect> UnpartitionedEffects => unpartitionedEffects;
-		public IEnumerable<ISync> SyncedEffects => syncedEffects;
+		public IEnumerable<IEffect> Effects => effects[FrontendWorldIndex];
+		public IEnumerable<IEffect> UnpartitionedEffects => unpartitionedEffects[FrontendWorldIndex];
+		public IEnumerable<ISync> SyncedEffects => syncedEffects[FrontendWorldIndex];
 
 		public Actor GetActorById(uint actorId)
 		{

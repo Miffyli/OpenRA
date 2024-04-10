@@ -48,6 +48,8 @@ namespace OpenRA
 		internal static OrderManager OrderManager;
 		static Server.Server server;
 
+		public static int NumParallelWorlds = 1;
+
 		public static MersenneTwister CosmeticRandom = new(); // not synced
 
 		public static Renderer Renderer;
@@ -945,6 +947,18 @@ namespace OpenRA
 		public static bool IsCurrentWorld(World world)
 		{
 			return OrderManager != null && OrderManager.World == world && !world.Disposing;
+		}
+
+		public static int GetFrontendWorldIndex()
+		{
+			// TODO replace this with some sensible code down the line
+			return 0;
+		}
+
+		public static void SetFrontendWorldIndex(int index)
+		{
+			// TODO replace this with some sensible code down the line
+			return;
 		}
 
 		public static bool SetClipboardText(string text)

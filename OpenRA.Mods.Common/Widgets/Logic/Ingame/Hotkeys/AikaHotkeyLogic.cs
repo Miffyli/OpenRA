@@ -10,6 +10,7 @@
 #endregion
 
 using System.Collections.Generic;
+using OpenRA;
 using OpenRA.Mods.Common.Lint;
 using OpenRA.Widgets;
 
@@ -34,10 +35,11 @@ namespace OpenRA.Mods.Common.Widgets.Logic.Ingame
 			{
 				if (e.Event == KeyInputEvent.Down)
 				{
+					var currentWorldIndex = Game.GetFrontendWorldIndex();
 					if (nextKey.IsActivatedBy(e))
-						world.FrontendWorldIndex = (world.FrontendWorldIndex + 1) % world.NumParallelWorlds;
+						Game.SetFrontendWorldIndex((currentWorldIndex + 1) % Game.NumParallelWorlds);
 					else if (prevKey.IsActivatedBy(e))
-						world.FrontendWorldIndex = (world.FrontendWorldIndex - 1 + world.NumParallelWorlds) % world.NumParallelWorlds;
+						Game.SetFrontendWorldIndex((currentWorldIndex - 1) % Game.NumParallelWorlds);
 				}
 
 				return false;

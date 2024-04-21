@@ -48,7 +48,8 @@ namespace OpenRA
 		internal static OrderManager OrderManager;
 		static Server.Server server;
 
-		public static int NumParallelWorlds = 1;
+		public static int NumParallelWorlds = 2;
+		public static int CurrentParallelWorld = 0;
 
 		public static MersenneTwister CosmeticRandom = new(); // not synced
 
@@ -958,7 +959,11 @@ namespace OpenRA
 		public static void SetFrontendWorldIndex(int index)
 		{
 			// TODO replace this with some sensible code down the line
-			return;
+			// Check that the index is valid (0 <= index < NumParallelWorlds)
+			if (index >= 0 && index < NumParallelWorlds)
+				CurrentParallelWorld = index;
+			else
+				throw new ArgumentOutOfRangeException("index", "Invalid index for parallel world");
 		}
 
 		public static bool SetClipboardText(string text)

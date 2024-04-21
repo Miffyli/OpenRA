@@ -952,14 +952,11 @@ namespace OpenRA
 
 		public static int GetFrontendWorldIndex()
 		{
-			// TODO replace this with some sensible code down the line
-			return 0;
+			return CurrentParallelWorld;
 		}
 
 		public static void SetFrontendWorldIndex(int index)
 		{
-			// TODO replace this with some sensible code down the line
-			// Check that the index is valid (0 <= index < NumParallelWorlds)
 			if (index >= 0 && index < NumParallelWorlds)
 				CurrentParallelWorld = index;
 			else

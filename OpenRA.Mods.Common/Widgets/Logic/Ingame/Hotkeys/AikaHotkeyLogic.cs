@@ -37,9 +37,14 @@ namespace OpenRA.Mods.Common.Widgets.Logic.Ingame
 				{
 					var currentWorldIndex = Game.GetFrontendWorldIndex();
 					if (nextKey.IsActivatedBy(e))
-						Game.SetFrontendWorldIndex((currentWorldIndex + 1) % Game.NumParallelWorlds);
+						currentWorldIndex++;
 					else if (prevKey.IsActivatedBy(e))
-						Game.SetFrontendWorldIndex((currentWorldIndex - 1) % Game.NumParallelWorlds);
+						currentWorldIndex--;
+					if (currentWorldIndex < 0)
+						currentWorldIndex = Game.NumParallelWorlds - 1;
+					else if (currentWorldIndex >= Game.NumParallelWorlds)
+						currentWorldIndex = 0;
+					Game.SetFrontendWorldIndex(currentWorldIndex);
 				}
 
 				return false;

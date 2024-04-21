@@ -101,7 +101,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		public IEnumerable<Actor> GetActorsInControlGroup(int group)
 		{
-			return controlGroups[group].Where(a => a.IsInWorld);
+			return controlGroups[group].Where(a => a.IsInAnyWorld);
 		}
 
 		void ITick.Tick(Actor self)

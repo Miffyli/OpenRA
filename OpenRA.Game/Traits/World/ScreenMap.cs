@@ -43,7 +43,7 @@ namespace OpenRA.Traits
 	{
 		static readonly IEnumerable<FrozenActor> NoFrozenActors = Array.Empty<FrozenActor>();
 		readonly Func<FrozenActor, bool> frozenActorIsValid = fa => fa.IsValid;
-		readonly Func<Actor, bool> actorIsInWorld = a => a.IsInWorld;
+		readonly Func<Actor, bool> actorIsInWorld = a => a.IsInAnyWorld;
 		readonly Func<Actor, ActorBoundsPair> selectActorAndBounds;
 		readonly Cache<Player, SpatiallyPartitioned<FrozenActor>> partitionedMouseFrozenActors;
 		readonly SpatiallyPartitioned<Actor> partitionedMouseActors;

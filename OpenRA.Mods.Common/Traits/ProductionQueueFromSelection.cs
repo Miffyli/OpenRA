@@ -48,14 +48,14 @@ namespace OpenRA.Mods.Common.Traits
 
 			// Queue-per-actor
 			var queue = world.Selection.Actors
-				.Where(a => a.IsInWorld && a.World.LocalPlayer == a.Owner)
+				.Where(a => a.IsInAnyWorld && a.World.LocalPlayer == a.Owner)
 				.SelectMany(a => a.TraitsImplementing<ProductionQueue>())
 				.FirstOrDefault(q => q.Enabled);
 
 			// Queue-per-player
 			if (queue == null)
 			{
-				var types = world.Selection.Actors.Where(a => a.IsInWorld && a.World.LocalPlayer == a.Owner)
+				var types = world.Selection.Actors.Where(a => a.IsInAnyWorld && a.World.LocalPlayer == a.Owner)
 					.SelectMany(a => a.TraitsImplementing<Production>().Where(p => !p.IsTraitDisabled))
 					.SelectMany(t => t.Info.Produces);
 

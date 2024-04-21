@@ -89,7 +89,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		void INotifyCenterPositionChanged.CenterPositionChanged(Actor self, byte oldLayer, byte newLayer)
 		{
-			if (!self.IsInWorld)
+			if (!self.IsInAnyWorld)
 				return;
 
 			var centerPosition = self.CenterPosition;
@@ -109,7 +109,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		void ITick.Tick(Actor self)
 		{
-			if (!self.IsInWorld)
+			if (!self.IsInAnyWorld)
 				return;
 
 			var traitDisabled = IsTraitDisabled;
@@ -158,7 +158,7 @@ namespace OpenRA.Mods.Common.Traits
 		void INotifyMoving.MovementTypeChanged(Actor self, MovementType type)
 		{
 			// Recalculate the visibility at our final stop position
-			if (type == MovementType.None && self.IsInWorld)
+			if (type == MovementType.None && self.IsInAnyWorld)
 			{
 				var centerPosition = self.CenterPosition;
 				var projectedPos = centerPosition - new WVec(0, centerPosition.Z, centerPosition.Z);

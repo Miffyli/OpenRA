@@ -55,13 +55,13 @@ namespace OpenRA.Mods.Common.Effects
 
 		public void Tick(World world)
 		{
-			if (++tick >= count * interval || !target.IsInWorld)
+			if (++tick >= count * interval || !target.IsInAnyWorld)
 				world.AddFrameEndTask(w => w.Remove(this));
 		}
 
 		public IEnumerable<IRenderable> Render(WorldRenderer wr)
 		{
-			if (target.IsInWorld && tick >= 0 && tick % interval == 0)
+			if (target.IsInAnyWorld && tick >= 0 && tick % interval == 0)
 			{
 				return target.Render(wr)
 					.Where(r => !r.IsDecoration && r is IModifyableRenderable)

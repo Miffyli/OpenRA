@@ -56,7 +56,7 @@ namespace OpenRA
 
 		public Player Owner { get; internal set; }
 
-		public bool IsInWorld { get; internal set; }
+		public bool IsInAnyWorld { get; internal set; }
 		public bool WillDispose { get; private set; }
 		public bool Disposed { get; private set; }
 
@@ -376,11 +376,6 @@ namespace OpenRA
 			return MyWorldIndex == worldIndex;
 		}
 
-		public bool IsInAnyWorld()
-		{
-			return IsInWorld;
-		}
-
 		public bool IsInFrontendWorld()
 		{
 			return MyWorldIndex == Game.GetFrontendWorldIndex();
@@ -390,7 +385,7 @@ namespace OpenRA
 		{
 			// PERF: Avoid format strings.
 			var name = Info.Name + " " + ActorID;
-			if (!IsInWorld)
+			if (IsInAnyWorld)
 				name += " (not in world)";
 			return name;
 		}
@@ -429,7 +424,7 @@ namespace OpenRA
 				if (Disposed)
 					return;
 
-				if (IsInWorld)
+				if (IsInAnyWorld)
 					World.Remove(this);
 
 				foreach (var t in TraitsImplementing<INotifyActorDisposing>())
@@ -464,7 +459,7 @@ namespace OpenRA
 				return;
 
 			var oldOwner = Owner;
-			var wasInWorld = IsInWorld;
+			var wasInWorld = IsInAnyWorld;
 
 			// momentarily remove from world so the ownership queries don't get confused
 			if (wasInWorld)

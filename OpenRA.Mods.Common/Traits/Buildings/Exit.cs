@@ -62,7 +62,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		public static IEnumerable<Exit> Exits(this Actor actor, string productionType = null)
 		{
-			if (!actor.IsInWorld || actor.Disposed)
+			if (!actor.IsInAnyWorld || actor.Disposed)
 				return Enumerable.Empty<Exit>();
 
 			var all = actor.TraitsImplementing<Exit>()
@@ -76,7 +76,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		public static Exit RandomExitOrDefault(this Actor actor, World world, string productionType, Func<Exit, bool> p = null)
 		{
-			if (!actor.IsInWorld || actor.Disposed)
+			if (!actor.IsInAnyWorld || actor.Disposed)
 				return null;
 
 			var allOfType = Exits(actor, productionType);

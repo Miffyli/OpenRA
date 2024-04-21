@@ -77,7 +77,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		void INotifyKilled.Killed(Actor self, AttackInfo e)
 		{
-			if (!enabled || IsTraitDisabled || !self.IsInWorld)
+			if (!enabled || IsTraitDisabled || !self.IsInAnyWorld)
 				return;
 
 			if (self.World.SharedRandom.Next(100) > Info.Probability)

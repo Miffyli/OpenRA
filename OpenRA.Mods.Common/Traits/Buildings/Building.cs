@@ -184,7 +184,7 @@ namespace OpenRA.Mods.Common.Traits
 		{
 			foreach (var a in actors)
 			{
-				if (!a.IsInWorld)
+				if (!a.IsInAnyWorld)
 					continue;
 
 				if (a.Owner != p && (!allyBuildEnabled || a.Owner.RelationshipWith(p) != PlayerRelationship.Ally))

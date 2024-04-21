@@ -245,10 +245,10 @@ namespace OpenRA.Mods.Common.Activities
 
 		CPos? GetSearchFromProcLocation()
 		{
-			if (harv.LastLinkedProc != null && !harv.LastLinkedProc.IsDead && harv.LastLinkedProc.IsInWorld)
+			if (harv.LastLinkedProc != null && !harv.LastLinkedProc.IsDead && harv.LastLinkedProc.IsInAnyWorld)
 				return harv.LastLinkedProc.World.Map.CellContaining(harv.LastLinkedProc.Trait<IAcceptResources>().DeliveryPosition);
 
-			if (harv.LinkedProc != null && !harv.LinkedProc.IsDead && harv.LinkedProc.IsInWorld)
+			if (harv.LinkedProc != null && !harv.LinkedProc.IsDead && harv.LinkedProc.IsInAnyWorld)
 				return harv.LinkedProc.World.Map.CellContaining(harv.LinkedProc.Trait<IAcceptResources>().DeliveryPosition);
 
 			return null;

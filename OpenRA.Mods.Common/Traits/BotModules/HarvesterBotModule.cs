@@ -69,7 +69,7 @@ namespace OpenRA.Mods.Common.Traits
 		{
 			world = self.World;
 			player = self.Owner;
-			unitCannotBeOrdered = a => a.Owner != self.Owner || a.IsDead || !a.IsInWorld;
+			unitCannotBeOrdered = a => a.Owner != self.Owner || a.IsDead || !a.IsInAnyWorld;
 		}
 
 		protected override void Created(Actor self)

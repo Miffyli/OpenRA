@@ -412,7 +412,7 @@ namespace OpenRA.Mods.Common.Widgets
 
 						foreach (var t in world.ActorsWithTrait<IRadarSignature>())
 						{
-							if (!t.Actor.IsInWorld || world.FogObscures(t.Actor))
+							if (!t.Actor.IsInAnyWorld || world.FogObscures(t.Actor))
 								continue;
 
 							cells.Clear();

@@ -86,7 +86,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		void ITick.Tick(Actor self)
 		{
-			if (!self.IsInWorld || self.CenterPosition == prevPosition)
+			if (!self.IsInAnyWorld || self.CenterPosition == prevPosition)
 				return;
 
 			self.World.ActorMap.UpdateProximityTrigger(proximityTrigger, self.CenterPosition, Info.Range, WDist.Zero);

@@ -256,7 +256,7 @@ namespace OpenRA
 
 		public void UpdateMaps(Actor self, IOccupySpace ios)
 		{
-			if (!self.IsInWorld)
+			if (!self.IsInAnyWorld)
 				return;
 
 			ScreenMap.AddOrUpdate(self);
@@ -333,7 +333,7 @@ namespace OpenRA
 
 		public void Add(Actor a)
 		{
-			a.IsInWorld = true;
+			a.IsInAnyWorld = true;
 			actors.Add(a.ActorID, a);
 			ActorAdded(a);
 
@@ -343,7 +343,7 @@ namespace OpenRA
 
 		public void Remove(Actor a)
 		{
-			a.IsInWorld = false;
+			a.IsInAnyWorld = false;
 			actors.Remove(a.ActorID);
 			ActorRemoved(a);
 

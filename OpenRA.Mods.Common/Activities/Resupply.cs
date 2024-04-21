@@ -94,7 +94,7 @@ namespace OpenRA.Mods.Common.Activities
 				return false;
 			}
 
-			var isHostInvalid = host.Type != TargetType.Actor || !host.Actor.IsInWorld;
+			var isHostInvalid = host.Type != TargetType.Actor || !host.Actor.IsInAnyWorld;
 			var isCloseEnough = false;
 			if (!isHostInvalid)
 			{

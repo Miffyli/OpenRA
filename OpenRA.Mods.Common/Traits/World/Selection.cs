@@ -130,7 +130,7 @@ namespace OpenRA.Mods.Common.Traits
 			// TODO: This probably should only be considering the newly selected actors
 			foreach (var actor in actors)
 			{
-				if (actor.Owner != world.LocalPlayer || !actor.IsInWorld)
+				if (actor.Owner != world.LocalPlayer || !actor.IsInAnyWorld)
 					continue;
 
 				var selectable = actor.Info.TraitInfoOrDefault<ISelectableInfo>();
@@ -164,7 +164,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		void ITick.Tick(Actor self)
 		{
-			var removed = actors.RemoveWhere(a => !a.IsInWorld || (!a.Owner.IsAlliedWith(world.RenderPlayer) && world.FogObscures(a)));
+			var removed = actors.RemoveWhere(a => !a.IsInAnyWorld || (!a.Owner.IsAlliedWith(world.RenderPlayer) && world.FogObscures(a)));
 			if (removed > 0)
 			{
 				UpdateHash();

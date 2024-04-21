@@ -130,7 +130,7 @@ namespace OpenRA.Mods.Common.Traits
 				// Checking for attack range is not relevant here because
 				// aircraft may be shot down before entering the range.
 				// If at the map's edge, they may be removed from world before leaving.
-				if (aircraftInRange.All(kv => !kv.Key.IsInWorld))
+				if (aircraftInRange.All(kv => !kv.Key.IsInAnyWorld))
 				{
 					RemoveCamera(camera);
 					RemoveBeacon(beacon);

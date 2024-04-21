@@ -65,7 +65,7 @@ namespace OpenRA.Mods.Common.Activities
 					return false;
 
 				case DockingState.Drag:
-					if (IsCanceling || !RefineryActor.IsInWorld || RefineryActor.IsDead || Harv.IsTraitDisabled)
+					if (IsCanceling || !RefineryActor.IsInAnyWorld || RefineryActor.IsDead || Harv.IsTraitDisabled)
 						return true;
 
 					dockingState = DockingState.Dock;
@@ -75,7 +75,7 @@ namespace OpenRA.Mods.Common.Activities
 					return false;
 
 				case DockingState.Dock:
-					if (!IsCanceling && RefineryActor.IsInWorld && !RefineryActor.IsDead && !Harv.IsTraitDisabled)
+					if (!IsCanceling && RefineryActor.IsInAnyWorld && !RefineryActor.IsDead && !Harv.IsTraitDisabled)
 					{
 						dockInitiated = true;
 						PlayDockAnimations(self);
@@ -87,7 +87,7 @@ namespace OpenRA.Mods.Common.Activities
 					return false;
 
 				case DockingState.Loop:
-					if (IsCanceling || !RefineryActor.IsInWorld || RefineryActor.IsDead || Harv.IsTraitDisabled || Harv.TickUnload(self, RefineryActor))
+					if (IsCanceling || !RefineryActor.IsInAnyWorld || RefineryActor.IsDead || Harv.IsTraitDisabled || Harv.TickUnload(self, RefineryActor))
 						dockingState = DockingState.Undock;
 
 					return false;
@@ -145,7 +145,7 @@ namespace OpenRA.Mods.Common.Activities
 
 		public virtual void PlayUndockAnimations(Actor self)
 		{
-			if (RefineryActor.IsInWorld && !RefineryActor.IsDead && DockHostSpriteOverlay != null && !DockHostSpriteOverlay.Visible)
+			if (RefineryActor.IsInAnyWorld && !RefineryActor.IsDead && DockHostSpriteOverlay != null && !DockHostSpriteOverlay.Visible)
 			{
 				dockingState = DockingState.Wait;
 				DockHostSpriteOverlay.Visible = true;
@@ -187,7 +187,7 @@ namespace OpenRA.Mods.Common.Activities
 			foreach (var nd in notifyDockClients)
 				nd.Undocked(self, RefineryActor);
 
-			if (RefineryActor.IsInWorld && !RefineryActor.IsDead)
+			if (RefineryActor.IsInAnyWorld && !RefineryActor.IsDead)
 				foreach (var nd in notifyDockHosts)
 					nd.Undocked(RefineryActor, self);
 		}

@@ -28,7 +28,7 @@ namespace OpenRA.Mods.Common.Widgets
 
 		public static IEnumerable<Actor> SelectActorsInWorld(World world, IEnumerable<string> selectionClasses, IEnumerable<Player> players)
 		{
-			return SelectActorsByOwnerAndSelectionClass(world.Actors.Where(a => a.IsInWorld), players, selectionClasses);
+			return SelectActorsByOwnerAndSelectionClass(world.Actors.Where(a => a.IsInAnyWorld), players, selectionClasses);
 		}
 
 		public static IEnumerable<Actor> SelectActorsByOwnerAndSelectionClass(IEnumerable<Actor> actors, IEnumerable<Player> owners, IEnumerable<string> selectionClasses)

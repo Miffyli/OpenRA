@@ -797,7 +797,7 @@ namespace OpenRA.Mods.Common.Traits
 		{
 			CenterPosition = pos;
 
-			if (!self.IsInWorld)
+			if (!self.IsInAnyWorld)
 				return;
 
 			var altitude = self.World.Map.DistanceAboveTerrain(CenterPosition);
@@ -871,7 +871,7 @@ namespace OpenRA.Mods.Common.Traits
 					$"Cannot {nameof(AddInfluence)} until previous influence is removed with {nameof(RemoveInfluence)}");
 
 			this.landingCells = landingCells;
-			if (self.IsInWorld)
+			if (self.IsInAnyWorld)
 				self.World.ActorMap.AddInfluence(self, this);
 		}
 
@@ -882,7 +882,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		public void RemoveInfluence()
 		{
-			if (self.IsInWorld)
+			if (self.IsInAnyWorld)
 				self.World.ActorMap.RemoveInfluence(self, this);
 
 			landingCells = Array.Empty<(CPos, SubCell)>();

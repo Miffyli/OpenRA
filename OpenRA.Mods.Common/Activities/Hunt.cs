@@ -27,7 +27,7 @@ namespace OpenRA.Mods.Common.Activities
 			move = self.Trait<IMove>();
 			var attack = self.Trait<AttackBase>();
 			targets = self.World.ActorsHavingTrait<Huntable>().Where(
-				a => self != a && !a.IsDead && a.IsInAnyWorld && a.AppearsHostileTo(self)
+				a => self != a && !a.IsDead && a.IsInWorldIndex(self.WorldIndex) && a.AppearsHostileTo(self)
 				&& a.IsTargetableBy(self) && attack.HasAnyValidWeapons(Target.FromActor(a)));
 		}
 

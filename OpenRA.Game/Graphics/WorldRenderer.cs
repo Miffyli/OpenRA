@@ -272,7 +272,7 @@ namespace OpenRA.Graphics
 
 			World.ApplyToActorsWithTrait<IRenderAboveWorld>((actor, trait) =>
 			{
-				if (actor.IsInAnyWorld && !actor.Disposed)
+				if (actor.IsInFrontendWorld() && !actor.Disposed)
 					trait.RenderAboveWorld(actor, this);
 			});
 

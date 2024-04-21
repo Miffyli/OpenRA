@@ -50,7 +50,7 @@ namespace OpenRA
 
 		public readonly World World;
 
-		public int MyWorldIndex;
+		public int WorldIndex;
 
 		public readonly uint ActorID;
 
@@ -133,7 +133,7 @@ namespace OpenRA
 			readOnlyConditionCache = new ReadOnlyDictionary<string, int>(conditionCache);
 
 			World = world;
-			MyWorldIndex = Game.GetFrontendWorldIndex();
+			WorldIndex = Game.GetFrontendWorldIndex();
 			ActorID = world.NextAID();
 			var ownerInit = init.GetOrDefault<OwnerInit>();
 			if (ownerInit != null)
@@ -373,12 +373,12 @@ namespace OpenRA
 
 		public bool IsInWorldIndex(int worldIndex)
 		{
-			return MyWorldIndex == worldIndex;
+			return IsInAnyWorld && WorldIndex == worldIndex;
 		}
 
 		public bool IsInFrontendWorld()
 		{
-			return MyWorldIndex == Game.GetFrontendWorldIndex();
+			return IsInAnyWorld && WorldIndex == Game.GetFrontendWorldIndex();
 		}
 
 		public override string ToString()

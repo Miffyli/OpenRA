@@ -136,7 +136,7 @@ namespace OpenRA.Mods.Common.Graphics
 		public IFinalizedRenderable PrepareRender(WorldRenderer wr) { return this; }
 		public void Render(WorldRenderer wr)
 		{
-			if (!actor.IsInAnyWorld || actor.IsDead)
+			if (!actor.IsInFrontendWorld() || actor.IsDead)
 				return;
 
 			var health = actor.TraitOrDefault<IHealth>();

@@ -69,7 +69,7 @@ namespace OpenRA.Mods.Common.Traits
 					&& !unit.Info.HasTraitInfo<HuskInfo>()
 					&& unit.Info.HasTraitInfo<ITargetableInfo>();
 
-			unitCannotBeOrderedOrIsIdle = a => a.Owner != player || a.IsDead || !a.IsInAnyWorld || a.IsIdle;
+			unitCannotBeOrderedOrIsIdle = a => a.Owner != player || a.IsDead || !a.IsInWorldIndex(self.WorldIndex) || a.IsIdle;
 
 			maximumCaptureTargetOptions = Math.Max(1, Info.MaximumCaptureTargetOptions);
 		}
@@ -109,7 +109,7 @@ namespace OpenRA.Mods.Common.Traits
 		IEnumerable<Actor> GetActorsThatCanBeOrderedByPlayer(Player owner)
 		{
 			foreach (var actor in world.Actors)
-				if (actor.Owner == owner && !actor.IsDead && actor.IsInAnyWorld)
+				if (actor.Owner == owner && !actor.IsDead && actor.IsInFrontendWorld())
 					yield return actor;
 		}
 

@@ -78,7 +78,7 @@ namespace OpenRA.Mods.Common.Traits
 
 			// Add all actors that provide prerequisites
 			var prerequisites = player.World.ActorsWithTrait<ITechTreePrerequisite>()
-				.Where(a => a.Actor.Owner == player && a.Actor.IsInAnyWorld && !a.Actor.IsDead);
+				.Where(a => a.Actor.Owner == player && a.Actor.IsInFrontendWorld() && !a.Actor.IsDead);
 
 			foreach (var b in prerequisites)
 			{
@@ -97,7 +97,7 @@ namespace OpenRA.Mods.Common.Traits
 			var buildables = player.World.ActorsWithTrait<Buildable>()
 				.Where(a =>
 					a.Actor.Owner == player &&
-					a.Actor.IsInAnyWorld &&
+					a.Actor.IsInFrontendWorld() &&
 					!a.Actor.IsDead &&
 					!ret.ContainsKey(a.Actor.Info.Name) &&
 					a.Actor.Info.TraitInfo<BuildableInfo>().BuildLimit > 0);

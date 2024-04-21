@@ -36,7 +36,7 @@ namespace OpenRA.Mods.Common.Activities
 
 		protected override void OnFirstRun(Actor self)
 		{
-			if (targetActor != null && targetActor.IsInAnyWorld)
+			if (targetActor != null && targetActor.IsInWorldIndex(self.WorldIndex))
 				harv.LinkProc(targetActor);
 		}
 
@@ -49,7 +49,7 @@ namespace OpenRA.Mods.Common.Activities
 				return true;
 
 			// Find the nearest best refinery if not explicitly ordered to a specific refinery:
-			if (harv.LinkedProc == null || !harv.LinkedProc.IsInAnyWorld)
+			if (harv.LinkedProc == null || !harv.LinkedProc.IsInWorldIndex(self.WorldIndex))
 				harv.ChooseNewProc(self, null);
 
 			// No refineries exist; check again after delay defined in Harvester.

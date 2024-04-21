@@ -138,7 +138,7 @@ namespace OpenRA.Mods.Common.Traits
 			World = self.World;
 			Player = self.Owner;
 
-			unitCannotBeOrdered = a => a == null || a.Owner != Player || a.IsDead || !a.IsInAnyWorld;
+			unitCannotBeOrdered = a => a == null || a.Owner != Player || a.IsDead || !a.IsInWorldIndex(self.WorldIndex);
 		}
 
 		// Use for proactive targeting.

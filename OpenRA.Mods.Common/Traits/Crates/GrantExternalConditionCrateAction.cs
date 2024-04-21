@@ -60,11 +60,11 @@ namespace OpenRA.Mods.Common.Traits
 
 		public override void Activate(Actor collector)
 		{
-			if (collector.IsInAnyWorld && !collector.IsDead)
+			if (collector.IsInWorldIndex(collector.WorldIndex) && !collector.IsDead)
 				GrantCondition(collector);
 
 			var actorsInRange = self.World.FindActorsInCircle(self.CenterPosition, info.Range)
-				.Where(a => a != self && a != collector && a.IsInAnyWorld && !a.IsDead && a.Owner == collector.Owner && AcceptsCondition(a))
+				.Where(a => a != self && a != collector && a.IsInWorldIndex(self.WorldIndex) && !a.IsDead && a.Owner == collector.Owner && AcceptsCondition(a))
 				.OrderBy(a => (a.CenterPosition - self.CenterPosition).LengthSquared);
 
 			foreach (var a in info.MaxExtraCollectors > -1 ? actorsInRange.Take(info.MaxExtraCollectors) : actorsInRange)

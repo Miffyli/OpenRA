@@ -63,7 +63,7 @@ namespace OpenRA.Mods.Common.Effects
 				circles?.Play(rp.Info.CirclesSequence);
 			}
 
-			if (!building.IsInAnyWorld || building.IsDead)
+			if (!building.IsInFrontendWorld() || building.IsDead)
 				world.AddFrameEndTask(w => w.Remove(this));
 		}
 
@@ -85,7 +85,7 @@ namespace OpenRA.Mods.Common.Effects
 
 		IEnumerable<IRenderable> IEffectAboveShroud.RenderAboveShroud(WorldRenderer wr)
 		{
-			if (!building.IsInAnyWorld || !building.Owner.IsAlliedWith(building.World.LocalPlayer))
+			if (!building.IsInFrontendWorld() || !building.Owner.IsAlliedWith(building.World.LocalPlayer))
 				return SpriteRenderable.None;
 
 			if (!building.World.Selection.Contains(building))
@@ -110,7 +110,7 @@ namespace OpenRA.Mods.Common.Effects
 			if (Game.Settings.Game.TargetLines == TargetLinesType.Disabled)
 				return SpriteRenderable.None;
 
-			if (!building.IsInAnyWorld || !building.Owner.IsAlliedWith(building.World.LocalPlayer))
+			if (!building.IsInFrontendWorld() || !building.Owner.IsAlliedWith(building.World.LocalPlayer))
 				return SpriteRenderable.None;
 
 			if (!building.World.Selection.Contains(building))

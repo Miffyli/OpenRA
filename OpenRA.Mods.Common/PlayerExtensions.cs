@@ -20,6 +20,7 @@ namespace OpenRA.Mods.Common
 		{
 			if (shortGame)
 				return !player.World.ActorsHavingTrait<MustBeDestroyed>(t => t.Info.RequiredForShortGame).Any(a => a.Owner == player);
+			// TODO note for future: we might want to change this to change the rules when using parallel worlds
 			return !player.World.ActorsHavingTrait<MustBeDestroyed>().Any(a => a.Owner == player && a.IsInAnyWorld);
 		}
 	}

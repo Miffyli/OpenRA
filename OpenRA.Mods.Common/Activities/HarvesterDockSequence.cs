@@ -65,7 +65,7 @@ namespace OpenRA.Mods.Common.Activities
 					return false;
 
 				case DockingState.Drag:
-					if (IsCanceling || !RefineryActor.IsInAnyWorld || RefineryActor.IsDead || Harv.IsTraitDisabled)
+					if (IsCanceling || !RefineryActor.IsInWorldIndex(self.WorldIndex) || RefineryActor.IsDead || Harv.IsTraitDisabled)
 						return true;
 
 					dockingState = DockingState.Dock;
@@ -75,7 +75,7 @@ namespace OpenRA.Mods.Common.Activities
 					return false;
 
 				case DockingState.Dock:
-					if (!IsCanceling && RefineryActor.IsInAnyWorld && !RefineryActor.IsDead && !Harv.IsTraitDisabled)
+					if (!IsCanceling && RefineryActor.IsInWorldIndex(self.WorldIndex) && !RefineryActor.IsDead && !Harv.IsTraitDisabled)
 					{
 						dockInitiated = true;
 						PlayDockAnimations(self);
@@ -87,7 +87,7 @@ namespace OpenRA.Mods.Common.Activities
 					return false;
 
 				case DockingState.Loop:
-					if (IsCanceling || !RefineryActor.IsInAnyWorld || RefineryActor.IsDead || Harv.IsTraitDisabled || Harv.TickUnload(self, RefineryActor))
+					if (IsCanceling || !RefineryActor.IsInWorldIndex(self.WorldIndex) || RefineryActor.IsDead || Harv.IsTraitDisabled || Harv.TickUnload(self, RefineryActor))
 						dockingState = DockingState.Undock;
 
 					return false;

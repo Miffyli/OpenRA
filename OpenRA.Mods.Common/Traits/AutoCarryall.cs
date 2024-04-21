@@ -54,7 +54,7 @@ namespace OpenRA.Mods.Common.Traits
 		{
 			// Find carriers
 			var carriers = self.World.ActorsHavingTrait<AutoCarryall>(c => !c.busy)
-				.Where(a => a.Owner == self.Owner && a.IsInAnyWorld);
+				.Where(a => a.Owner == self.Owner && a.IsInWorldIndex(self.WorldIndex));
 
 			return carriers.ClosestTo(candidateCargo) == self;
 		}
